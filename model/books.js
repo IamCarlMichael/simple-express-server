@@ -18,6 +18,9 @@ class Books {
     return this.books[id - 1];
     // return this.books.find(b => b.id === id)
   }
+  addNewBook(book) {
+    return this.books.push(book);
+  }
 }
 
 module.exports = new Books();

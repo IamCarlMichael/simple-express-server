@@ -26,7 +26,7 @@ describe("/books", () => {
   it("[POST] / Add a new book", () => {
     const newBook = { id: 123, title: "My first book", author: "Bob" };
     return request(app)
-      .get("/books/new")
+      .post("/books/new")
       .send(newBook)
       .expect(200)
       .expect({ id: 123, title: "My first book", author: "Bob" });

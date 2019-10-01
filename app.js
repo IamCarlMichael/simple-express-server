@@ -2,6 +2,8 @@ const express = require("express");
 const app = express();
 const port = 3000;
 
+app.use(express.json());
+
 const middleware = (req, res, next) => {
   console.log("Thanks for dropping by, please continue on your journey");
   next();
