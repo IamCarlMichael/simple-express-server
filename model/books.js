@@ -11,6 +11,19 @@ class Books {
   constructor() {
     this.books = module.exports.getBooksFromDb();
   }
+  updateBook(id, bookUpdates) {
+    let idx = Number(id);
+    let index = this.books.findIndex(b => b.id === idx);
+    this.books[index].id = bookUpdates.id;
+    this.books[index].title = bookUpdates.title;
+    this.books[index].author = bookUpdates.author;
+  }
+
+  removeBook(idx) {
+    let index = this.books.findIndex(b => b.id === idx);
+    this.books.splice(index, 1);
+    return this.books;
+  }
 
   getAllBooks() {
     return this.books;
@@ -26,7 +39,6 @@ class Books {
 
   filterBooks(queries) {
     const keys = Object.keys(queries);
-    console.log("keys", keys);
     return this.books.filter(book => {
       return keys.some(key => {
         return book[key].includes(queries[key]);

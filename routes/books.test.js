@@ -85,4 +85,32 @@ describe("/books", () => {
       .expect(200)
       .expect({ id: 6, title: "MVC is a design pattern", author: "Yun" });
   });
+
+  it("[DELETE] delete a single book by id", () => {
+    book.removeBook.mockReturnValueOnce(mockData.slice(0, -1));
+    return request(app)
+      .delete("/books/6")
+      .expect(200)
+      .expect([
+        { id: 1, title: "React", author: "Melvin" },
+        { id: 2, title: "Node", author: "Elson" },
+        { id: 3, title: "Express", author: "Jesstern" },
+        { id: 4, title: "All about APIs", author: "Ashley" },
+        {
+          id: 5,
+          title: "RESTful APIs are not Design Patterns",
+          author: "Syafi"
+        }
+      ]);
+  });
+
+  it("[PUT] update a single book by id", () => {
+    book.updateBook.mockReturnValueOnce(mockData[5]);
+    return request(app)
+      .put("/books/6")
+      .expect(200)
+      .expect(() => {
+        expect(book.updateBook).toHaveBeenCalledTimes(1);
+      });
+  });
 });

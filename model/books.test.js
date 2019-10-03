@@ -43,6 +43,24 @@ describe("/books", () => {
       .expect({ id: 123, title: "My first book", author: "Bob" });
   });
 
+  it("[DELETE] delete a single book by id", () => {
+    return request(app)
+      .delete("/books/123")
+      .expect(200)
+      .expect([
+        { id: 1, title: "React", author: "Melvin" },
+        { id: 2, title: "Node", author: "Elson" },
+        { id: 3, title: "Express", author: "Jesstern" },
+        { id: 4, title: "All about APIs", author: "Ashley" },
+        {
+          id: 5,
+          title: "RESTful APIs are not Design Patterns",
+          author: "Syafi"
+        },
+        { id: 6, title: "MVC is a design pattern", author: "Yun" }
+      ]);
+  });
+
   it("[GET] / return Melvin's array", () => {
     return request(app)
       .get("/books")
@@ -77,5 +95,22 @@ describe("/books", () => {
         { id: 1, title: "React", author: "Melvin" },
         { id: 6, title: "MVC is a design pattern", author: "Yun" }
       ]);
+  });
+
+  it("[PUT] update a single book by id", () => {
+    const bookUpdates = {
+      id: 6,
+      title: "REST is not a design pattern",
+      author: "Elvin"
+    };
+    return request(app)
+      .put("/books/5")
+      .send(bookUpdates)
+      .expect(200)
+      .expect({
+        id: 6,
+        title: "REST is not a design pattern",
+        author: "Elvin"
+      });
   });
 });
