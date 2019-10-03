@@ -7,7 +7,7 @@ describe("My first express server", () => {
     return request(app)
       .get("/")
       .expect(200)
-      .expect("Thank you for visiting the server, hope to see you again");
+      .expect("Thank you for visiting the server");
   });
   it("GET / should connect to the server successfully and return array of books'", () => {
     return request(app)
